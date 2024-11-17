@@ -169,17 +169,14 @@ const App: React.FC = () => {
   if (isCustomizeModeOn) {
     return (
       <div className="flex h-screen bg-[#1a1a1a]">
-        <div className="flex mt-4">
-          <div className="w-[450px] h-screen overflow-y-scroll">
-            <Sidebar
-              setIsCustomizeModeOn={setIsCustomizeModeOn}
-              config={config}
-              updateConfig={updateConfig}
-            />
-          </div>
-          <div className="w-full py-10">
-            <PreviewScreen config={config} />
-          </div>
+        <Sidebar
+          setIsCustomizeModeOn={setIsCustomizeModeOn}
+          config={config}
+          updateConfig={updateConfig}
+        />
+
+        <div className="flex-1 bg-[#1a1a1a] p-8">
+          <PreviewScreen config={config} />
         </div>
       </div>
     );
@@ -202,7 +199,11 @@ const App: React.FC = () => {
                   Start from scratch and design your unique swiper.
                 </p>
               </div>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2 text-sm">
+              <button
+                type="button"
+                onClick={() => setIsCustomizeModeOn(true)}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2 text-sm"
+              >
                 <Settings className="w-4 h-4" />
                 <span>Start Customizing</span>
               </button>
