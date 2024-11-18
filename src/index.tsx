@@ -188,7 +188,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#1a1a1a]">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section className="mb-12">
+        <section className="mb-8">
           <div className="bg-[#232323] rounded-xl border border-neutral-800 p-6 hover:border-neutral-700 transition-colors">
             <div className="flex items-center justify-between">
               <div>
@@ -222,7 +222,7 @@ const App: React.FC = () => {
                   <div className="relative mb-6">
                     <PreviewScreen config={preset} />
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col items-start gap-2 justify-start">
                     <h3 className="text-lg font-semibold text-white">
                       {preset.name}
                     </h3>

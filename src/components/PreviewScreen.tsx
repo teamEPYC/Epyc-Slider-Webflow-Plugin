@@ -21,7 +21,7 @@ interface PreviewProps {
 
 function PreviewScreen({ config }: PreviewProps) {
   return (
-    <div className="h-[400px] flex items-center justify-center p-8 overflow-hidden bg-neutral-900 rounded-lg">
+    <div className="h-[400px] flex items-center justify-center p-8 overflow-hidden rounded-lg">
       <div className="epyc-slider-attributes w-full h-full max-h-[400px] max-w-[640px] overflow-hidden relative bg-white rounded-lg shadow-lg">
         <Swiper
           modules={[
