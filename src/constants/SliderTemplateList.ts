@@ -124,7 +124,7 @@ export const sliderTempelateList: SliderConfig[] = [
     },
   },
   {
-    name: "5 Slides Per View",
+    name: "3 Slides Per View",
     parameters: {
       slideDirection: {
         value: "horizontal",
@@ -133,7 +133,7 @@ export const sliderTempelateList: SliderConfig[] = [
         options: ["horizontal", "vertical"],
       },
       slidesPerView: {
-        value: 5,
+        value: 3,
         label: "Slides per view",
         icon: Code2,
         options: ["auto", 1, 2, 3, 4, 5],

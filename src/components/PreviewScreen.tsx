@@ -72,7 +72,7 @@ function PreviewScreen({ config }: PreviewProps) {
             console.log(`Current Slide: ${swiper.activeIndex + 1}`)
           }
         >
-          {[1, 2, 3, 4].map((slideNum) => (
+          {[1, 2, 3, 4, 5, 6].map((slideNum) => (
             <SwiperSlide key={slideNum}>
               <div className="bg-neutral-100 rounded-md p-8 text-center">
                 <span className="text-xl font-medium text-neutral-700">

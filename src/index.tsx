@@ -5,142 +5,8 @@ import Sidebar from "./components/Sidebar";
 import { Settings, Compass, Minimize2, Clock } from "lucide-react";
 import { defaultSliderConfig, SliderConfig } from "./types/slider-config";
 import PreviewScreen from "./components/PreviewScreen";
+import { insertCustomConfigSliderComponent } from "./lib/slider-utils";
 
-export const insertSliderComponent = async ({
-  buttonNavigation,
-  bulletPaginations,
-}: {
-  buttonNavigation: boolean;
-  bulletPaginations: boolean;
-}) => {
-  try {
-    const el = await webflow.getSelectedElement();
-    if (!el.children) {
-      console.error("No element selected");
-      return;
-    }
-
-    const parentStyle = await getOrCreateStyle("epyc-slider-attributes");
-
-    const sliderAttributesDiv = await el.append(
-      webflow.elementPresets.DivBlock
-    );
-
-    await sliderAttributesDiv.setStyles([parentStyle]);
-    if (sliderAttributesDiv?.customAttributes) {
-      await sliderAttributesDiv.setCustomAttribute(
-        "epyc-slider-element",
-        "list"
-      );
-    }
-    // slider customization
-
-    // button navigation
-    const navigationwrapperStyle = await getOrCreateStyle("swiper-navigation");
-    const prevButtonStyle = await getOrCreateStyle("swiper-prev");
-    const nextButtonStyle = await getOrCreateStyle("swiper-next");
-
-    if (buttonNavigation) {
-      const buttonNavigationDiv = await sliderAttributesDiv.append(
-        webflow.elementPresets.DivBlock
-      );
-      const prevNavigation = await buttonNavigationDiv.append(
-        webflow.elementPresets.DivBlock
-      );
-      const prevNavigationText = prevNavigation.append(
-        webflow.elementPresets.Paragraph
-      );
-      const nextNavigation = await buttonNavigationDiv.append(
-        webflow.elementPresets.DivBlock
-      );
-      const nextNavigationText = nextNavigation.append(
-        webflow.elementPresets.Paragraph
-      );
-      buttonNavigationDiv.setStyles([navigationwrapperStyle]);
-      prevNavigation.setStyles([prevButtonStyle]);
-      (await prevNavigationText).setTextContent("prev");
-      nextNavigation.setStyles([nextButtonStyle]);
-      (await nextNavigationText).setTextContent("next");
-    }
-
-    // bullet pagination
-    const bulletPaginationStyle = await getOrCreateStyle(
-      "swiper-bullet-wrapper"
-    );
-    bulletPaginationStyle.setProperties({
-      display: "flex",
-      "flex-direction": "row",
-    });
-    const swiperBulletStyle = await getOrCreateStyle("swiper-bullet");
-    const swiperBulletActiveStyle = await getOrCreateStyle(
-      "swiper-bullet-active"
-    );
-    swiperBulletStyle.setProperties({
-      height: "16px",
-      width: "16px",
-      "background-color": "gray",
-    });
-    swiperBulletActiveStyle.setProperties({
-      "background-color": "green",
-    });
-
-    if (bulletPaginations) {
-      const bulletPaginationDiv = await sliderAttributesDiv.append(
-        webflow.elementPresets.DivBlock
-      );
-      bulletPaginationDiv.setStyles([bulletPaginationStyle]);
-
-      const paginationItem = await bulletPaginationDiv.append(
-        webflow.elementPresets.DivBlock
-      );
-      paginationItem.setStyles([swiperBulletStyle]);
-      const activePaginationItem = await bulletPaginationDiv.append(
-        webflow.elementPresets.DivBlock
-      );
-      activePaginationItem.setStyles([
-        swiperBulletActiveStyle,
-        swiperBulletStyle,
-      ]);
-    }
-
-    // pafination fraction
-
-    const swiperStyle = await getOrCreateStyle("swiper");
-
-    const swiperDiv = await sliderAttributesDiv.append(
-      webflow.elementPresets.DOM
-    );
-    await swiperDiv.setTag("div");
-    await swiperDiv.setStyles([swiperStyle]);
-
-    const wrapperStyle = await getOrCreateStyle("swiper-wrapper");
-
-    const swiperWrapperDiv = await swiperDiv.append(webflow.elementPresets.DOM);
-    await swiperWrapperDiv.setTag("div");
-    await swiperWrapperDiv.setStyles([wrapperStyle]);
-
-    const slideStyle = await getOrCreateStyle("swiper-slide");
-
-    const slide1 = await swiperWrapperDiv.append(webflow.elementPresets.DOM);
-    await slide1.setTag("div");
-    await slide1.setStyles([slideStyle]);
-    await slide1.setTextContent("slide 1");
-
-    const slide2 = await swiperWrapperDiv.append(webflow.elementPresets.DOM);
-    await slide2.setTag("div");
-    await slide2.setStyles([slideStyle]);
-    await slide2.setTextContent("slide 2");
-
-    const slide3 = await swiperWrapperDiv.append(webflow.elementPresets.DOM);
-    await slide3.setTag("div");
-    await slide3.setStyles([slideStyle]);
-    await slide3.setTextContent("slide 3");
-
-    console.log("Slider component inserted successfully");
-  } catch (error) {
-    console.error("Failed to insert slider component:", error);
-  }
-};
 export const getOrCreateStyle = async (styleName: string) => {
   let style = await webflow.getStyleByName(styleName);
   if (!style) {
@@ -201,7 +67,9 @@ const App: React.FC = () => {
               </div>
               <button
                 type="button"
-                onClick={() => setIsCustomizeModeOn(true)}
+                onClick={() => {
+                  setIsCustomizeModeOn(true);
+                }}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2 text-sm"
               >
                 <Settings className="w-4 h-4" />
@@ -234,7 +102,13 @@ const App: React.FC = () => {
                       >
                         Customize
                       </button>
-                      <button className="border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:border-neutral-600 hover:text-white transition-colors duration-200">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          insertCustomConfigSliderComponent({ config: preset })
+                        }
+                        className="border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:border-neutral-600 hover:text-white transition-colors duration-200"
+                      >
                         Import
                       </button>
                     </div>
