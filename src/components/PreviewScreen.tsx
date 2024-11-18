@@ -20,9 +20,10 @@ interface PreviewProps {
 }
 
 function PreviewScreen({ config }: PreviewProps) {
+  console.log(config);
   return (
-    <div className="h-[400px] flex items-center justify-center p-8 overflow-hidden rounded-lg">
-      <div className="epyc-slider-attributes w-full h-full max-h-[400px] max-w-[640px] overflow-hidden relative bg-white rounded-lg shadow-lg">
+    <div className="h-[400px]  flex items-center justify-center p-8 overflow-hidden rounded-lg">
+      <div className="epyc-slider-attributes relative h-full w-[420px] overflow-hidden bg-white rounded-lg shadow-lg">
         <Swiper
           modules={[
             Navigation,
@@ -32,11 +33,13 @@ function PreviewScreen({ config }: PreviewProps) {
             Keyboard,
             Mousewheel,
           ]}
-          autoplay={
-            config.modules.autoplay.enabled
-              ? { delay: 3000, disableOnInteraction: false }
-              : false
-          }
+          {...(config.modules.autoplay.enabled
+            ? {
+                autoplay: {
+                  delay: 2500,
+                },
+              }
+            : {})}
           loop={config.modules.infiniteLoop.enabled}
           direction={config.parameters.slideDirection.value}
           slidesPerView={config.parameters.slidesPerView.value}
@@ -53,39 +56,39 @@ function PreviewScreen({ config }: PreviewProps) {
           }
           pagination={
             config.modules.bulletPagination.enabled
-              ? { clickable: true, el: ".swiper-bullet-wrapper" }
+              ? { clickable: true, el: ".swiper-pagination" }
               : config.modules.fractionPagination.enabled
               ? {
                   type: "fraction",
                   el: ".swiper-fraction",
-                  renderFraction: (currentClass, totalClass) =>
-                    `<span class="${currentClass} font-medium"></span> / <span class="${totalClass} text-neutral-500"></span>`,
                 }
               : config.modules.progressPagination.enabled
               ? {
+                  el: ".swiper-pagination",
                   type: "progressbar",
-                  el: ".swiper-progress",
                 }
               : false
           }
           onSlideChange={(swiper) =>
             console.log(`Current Slide: ${swiper.activeIndex + 1}`)
           }
+          className="h-full "
         >
-          {[1, 2, 3, 4, 5, 6].map((slideNum) => (
-            <SwiperSlide key={slideNum}>
-              <div className="bg-neutral-100 rounded-md p-8 text-center">
-                <span className="text-xl font-medium text-neutral-700">
-                  Slide {slideNum}
-                </span>
-              </div>
-            </SwiperSlide>
-          ))}
+          <div className="flex h-full w-full items-center justify-center bg-green-300">
+            {[1, 2, 3, 4, 5, 6].map((slideNum) => (
+              <SwiperSlide
+                className="h-[400px] bg-gray-200 flex items-center justify-center"
+                key={slideNum}
+              >
+                Slide {slideNum}
+              </SwiperSlide>
+            ))}
+          </div>
         </Swiper>
 
         {/* Navigation */}
         {config.modules.navigation.enabled && (
-          <div className="swiper-navigation top-1/2 translate-y-1/2 w-full px-4 flex justify-between pointer-events-none">
+          <div className="absolute bottom-0 flex justify-between z-10 w-full px-4 py-2">
             <button className="swiper-prev bg-white rounded-full p-2 shadow-lg hover:bg-neutral-50 pointer-events-auto transition-colors">
               <ChevronLeft className="w-6 h-6" />
             </button>
@@ -97,17 +100,17 @@ function PreviewScreen({ config }: PreviewProps) {
 
         {/* Bullet Pagination */}
         {config.modules.bulletPagination.enabled && (
-          <div className="swiper-bullet-wrapper absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
+          <div className="swiper-pagination absolute w-full px-4 flex justify-center mt-4 pointer-events-auto"></div>
         )}
 
         {/* Fraction Pagination */}
         {config.modules.fractionPagination.enabled && (
-          <div className="swiper-fraction absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full shadow-md"></div>
+          <span className="swiper-fraction z-10 bg-white font-semibold text-xs absolute w-full text-black px-3 py-1 rounded-full shadow-md"></span>
         )}
 
         {/* Progress Pagination */}
         {config.modules.progressPagination.enabled && (
-          <div className="swiper-progress absolute bottom-0 left-0 w-full h-1 bg-neutral-200"></div>
+          <div className="swiper-pagination"></div>
         )}
       </div>
     </div>

@@ -14,8 +14,27 @@ type Props = {
 };
 
 function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
+  const handlePaginationToggle = (key: string) => {
+    Object.entries(config.modules).forEach(([moduleKey, module]) => {
+      const isPaginationType =
+        moduleKey === "BulletPagination" ||
+        moduleKey === "FractionPagination" ||
+        moduleKey === "ProgressPagination";
+
+      if (isPaginationType) {
+        updateConfig(
+          "modules",
+          moduleKey,
+          moduleKey === key
+            ? { ...module, enabled: !module.enabled }
+            : { ...module, enabled: false }
+        );
+      }
+    });
+  };
+
   return (
-    <div className="w-80 bg-[#232323] border-r border-neutral-800 flex flex-col">
+    <div className="bg-[#232323] border-r border-neutral-800 flex flex-col">
       <div className="flex-1 overflow-y-auto">
         <div className="p-6">
           <h2 className="text-sm font-semibold text-neutral-400 mb-4">
@@ -119,10 +138,16 @@ function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
                   </div>
                   <button
                     onClick={() =>
-                      updateConfig("modules", key, {
-                        ...module,
-                        enabled: !module.enabled,
-                      })
+                      [
+                        "bulletPagination",
+                        "fractionPagination",
+                        "progressPagination",
+                      ].includes(key)
+                        ? handlePaginationToggle(key)
+                        : updateConfig("modules", key, {
+                            ...module,
+                            enabled: !module.enabled,
+                          })
                     }
                     className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border border-neutral-700 transition-colors duration-200 ease-in-out ${
                       module.enabled ? "bg-blue-600" : "bg-neutral-700"

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { sliderTempelateList } from "./constants/SliderTemplateList";
 import Sidebar from "./components/Sidebar";
-import { Settings, Compass, Minimize2, Clock } from "lucide-react";
+import { Settings } from "lucide-react";
 import { defaultSliderConfig, SliderConfig } from "./types/slider-config";
 import PreviewScreen from "./components/PreviewScreen";
 import { insertCustomConfigSliderComponent } from "./lib/slider-utils";
@@ -41,7 +41,7 @@ const App: React.FC = () => {
           updateConfig={updateConfig}
         />
 
-        <div className="flex justify-center items-center bg-[#1a1a1a] p-8">
+        <div className="flex justify-center items-center p-8">
           <PreviewScreen config={config} />
         </div>
       </div>
@@ -83,14 +83,11 @@ const App: React.FC = () => {
           <h2 className="text-2xl font-bold mb-8 text-white">
             Choose a Preset
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-6">
             {sliderTempelateList.map((preset, index) => (
               <div key={index} className="group">
                 <div className="bg-[#232323] rounded-2xl border border-neutral-800 p-6 hover:border-neutral-700 transition-all duration-200">
-                  <div className="relative mb-6">
-                    <PreviewScreen config={preset} />
-                  </div>
-                  <div className="flex flex-col items-start gap-2 justify-start">
+                  <div className="flex justify-between items-start gap-2">
                     <h3 className="text-lg font-semibold text-white">
                       {preset.name}
                     </h3>
@@ -98,7 +95,7 @@ const App: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleCustomize(preset)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                        className="bg-blue-600 text-white px-2 py-1 rounded-md hover:bg-blue-700 transition-colors duration-200"
                       >
                         Customize
                       </button>
@@ -107,11 +104,14 @@ const App: React.FC = () => {
                         onClick={() =>
                           insertCustomConfigSliderComponent({ config: preset })
                         }
-                        className="border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:border-neutral-600 hover:text-white transition-colors duration-200"
+                        className="border border-neutral-700 text-neutral-300 px-2 py-1 rounded-md hover:border-neutral-600 hover:text-white transition-colors duration-200"
                       >
                         Import
                       </button>
                     </div>
+                  </div>
+                  <div className="relative">
+                    <PreviewScreen config={preset} />
                   </div>
                 </div>
               </div>
@@ -120,64 +120,6 @@ const App: React.FC = () => {
         </section>
       </main>
     </div>
-    // <div className="w-full bg-zinc-900 antialiased">
-    //   <div className="w-full p-4">
-    //     <h1 className="text-zinc-200 font-bold text-lg">Epyc Slider Builder</h1>
-    //     <div className="flex flex-col items-center justify-center w-full mt-6">
-    //       <h2 className="text-4xl text-zinc-300 font-semibold">
-    //         Create amazing slider with no code
-    //       </h2>
-    //       <h3 className="text-base text-zinc-300 mt-2">
-    //         Customize your slider or choose from our presets to get started
-    //         quickly
-    //       </h3>
-    //     </div>
-    //     <div className="flex w-full items-center justify-center mt-4">
-    //       <button
-    //         onClick={() => setIsCustomizeModeOn(true)}
-    //         className="bg-white text-black px-2 py-1 text-xs font-bold flex items-center rounded cursor-pointer"
-    //       >
-    //         <span>Customize</span>
-    //         <span>
-    //           <ChevronRightIcon className="text-black size-4" />
-    //         </span>
-    //       </button>
-    //     </div>
-
-    //     <form className="w-full flex flex-col space-y-4 text-white mt-4">
-    //       {sliderTempelateList.map((item, index) => (
-    //         <div key={index}>
-    //           <div className="flex w-full justify-between items-center pt-2">
-    //             <p className="text-lg font-semibold text-zinc-400">
-    //               {item.name}
-    //             </p>
-    //             <div className="flex space-x-2">
-    //               <button
-    //                 type="button"
-    //                 onClick={() => {
-    //                   handleCustomize(item);
-    //                 }}
-    //                 className="text-xs bg-zinc-300 border border-zinc-900 text-zinc-900 w-20 hover:bg-zinc-900 hover:text-zinc-300 hover:border hover:border-zinc-300 px-2 duration-100 py-2 rounded font-semibold"
-    //               >
-    //                 Customize
-    //               </button>
-    //               <button
-    //                 type="button"
-    //                 onClick={() => {}}
-    //                 className="text-xs bg-zinc-300 border border-zinc-900 text-zinc-900 w-20 hover:bg-zinc-900 hover:text-zinc-300 hover:border hover:border-zinc-300 px-2 duration-100 py-2 rounded font-semibold"
-    //               >
-    //                 Insert
-    //               </button>
-    //             </div>
-    //           </div>
-    //           <div className="w-full h-56 bg-black pt-4 rounded-xl mt-4 flex">
-    //             <PreviewScreen config={item} />
-    //           </div>
-    //         </div>
-    //       ))}
-    //     </form>
-    //   </div>
-    // </div>
   );
 };
 

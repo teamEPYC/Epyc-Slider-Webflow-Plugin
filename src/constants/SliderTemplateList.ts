@@ -50,7 +50,7 @@ export const sliderTempelateList: SliderConfig[] = [
         label: "Progress Pagination",
         icon: MoreHorizontal,
       },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
+      autoplay: { enabled: false, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: false,
         label: "Keyboard control",
