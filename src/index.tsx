@@ -175,7 +175,7 @@ const App: React.FC = () => {
           updateConfig={updateConfig}
         />
 
-        <div className="flex-1 bg-[#1a1a1a] p-8">
+        <div className="flex justify-center items-center bg-[#1a1a1a] p-8">
           <PreviewScreen config={config} />
         </div>
       </div>

@@ -17,7 +17,7 @@ export type SliderConfig = {
       options: Array<"horizontal" | "vertical">;
     };
     slidesPerView: {
-      value: string;
+      value: number | "auto";
       label: string;
       icon: typeof Code2;
       options: Array<string | number>;
@@ -53,7 +53,7 @@ export const defaultSliderConfig: SliderConfig = {
       value: "auto",
       label: "Slides per view",
       icon: Code2,
-      options: ["auto", 1, 2, 3, 4, 5],
+      options: ["auto", "1", "2", "3", "4", "5"],
     },
     spaceBetweenSlides: {
       value: 0,

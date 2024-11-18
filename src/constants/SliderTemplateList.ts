@@ -78,7 +78,7 @@ export const sliderTempelateList: SliderConfig[] = [
         options: ["horizontal", "vertical"],
       },
       slidesPerView: {
-        value: "1",
+        value: 1,
         label: "Slides per view",
         icon: Code2,
         options: ["auto", 1, 2, 3, 4, 5],
@@ -133,7 +133,7 @@ export const sliderTempelateList: SliderConfig[] = [
         options: ["horizontal", "vertical"],
       },
       slidesPerView: {
-        value: "5",
+        value: 5,
         label: "Slides per view",
         icon: Code2,
         options: ["auto", 1, 2, 3, 4, 5],
@@ -192,7 +192,7 @@ export const sliderTempelateList: SliderConfig[] = [
         options: ["horizontal", "vertical"],
       },
       slidesPerView: {
-        value: "1",
+        value: 1,
         label: "Slides per view",
         icon: Code2,
         options: ["auto", 1, 2, 3, 4, 5],
@@ -247,7 +247,7 @@ export const sliderTempelateList: SliderConfig[] = [
         options: ["horizontal", "vertical"],
       },
       slidesPerView: {
-        value: "3",
+        value: 3,
         label: "Slides per view",
         icon: Code2,
         options: ["auto", 1, 2, 3, 4, 5],
@@ -361,7 +361,7 @@ export const sliderTempelateList: SliderConfig[] = [
         options: ["horizontal", "vertical"],
       },
       slidesPerView: {
-        value: "2",
+        value: 2,
         label: "Slides per view",
         icon: Code2,
         options: ["auto", 1, 2, 3, 4, 5],

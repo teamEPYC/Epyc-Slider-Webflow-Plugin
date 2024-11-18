@@ -1,20 +1,5 @@
-import {
-  ArrowLeft,
-  ArrowLeftRight,
-  Box,
-  ChevronLeftIcon,
-  Layers,
-} from "lucide-react";
+import { ArrowLeft, ArrowLeftRight, Box, Layers } from "lucide-react";
 import React from "react";
-import { Slider } from "./ui/Slider";
-import { Switch } from "./ui/Switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/Select";
 import { SliderConfig } from "src/types/slider-config";
 import {
   applyStyles,
@@ -299,7 +284,7 @@ function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
           </div>
         </div>
       </div>
-      <div className="border-t border-neutral-800 p-4 flex justify-between bg-[#232323]">
+      <div className="border-t border-neutral-800 p-4 flex items-center justify-between bg-[#232323]">
         <button
           type="button"
           onClick={() => setIsCustomizeModeOn(false)}
