@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
@@ -20,11 +20,37 @@ interface PreviewProps {
 }
 
 function PreviewScreen({ config }: PreviewProps) {
+  const swiperKey = `swiper-${config.parameters.paginationType.value}-${config.modules.autoplay.enabled}`;
+
+  const getPaginationConfig = () => {
+    switch (config.parameters.paginationType.value) {
+      case "Bullet":
+        const abc = config.parameters.slideDirection.value;
+        return {
+          clickable: true,
+          el: ".swiper-pagination",
+        };
+      case "Fraction":
+        return {
+          type: "fraction" as const,
+          el: ".swiper-fraction",
+        };
+      case "Progressbar":
+        return {
+          type: "progressbar" as const,
+          el: ".swiper-progress-pagination",
+        };
+      default:
+        return false;
+    }
+  };
+
   console.log(config);
   return (
     <div className="h-[400px]  flex items-center justify-center p-8 overflow-hidden rounded-lg">
       <div className="epyc-slider-attributes relative h-full w-[420px] overflow-hidden bg-white rounded-lg shadow-lg">
         <Swiper
+          key={swiperKey}
           modules={[
             Navigation,
             Pagination,
@@ -54,17 +80,18 @@ function PreviewScreen({ config }: PreviewProps) {
                 }
               : false
           }
+          pagination={getPaginationConfig()}
           // pagination={
-          //   config.modules.bulletPagination.enabled
+          //   config.parameters.paginationType.value === "Bullet"
           //     ? { clickable: true, el: ".swiper-pagination" }
-          //     : config.modules.fractionPagination.enabled
+          //     : config.parameters.paginationType.value === "Fraction"
           //     ? {
           //         type: "fraction",
           //         el: ".swiper-fraction",
           //       }
-          //     : config.modules.progressPagination.enabled
+          //     : config.parameters.paginationType.value === "Progressbar"
           //     ? {
-          //         el: ".swiper-pagination",
+          //         el: ".swiper-progress-pagination",
           //         type: "progressbar",
           //       }
           //     : false
@@ -97,19 +124,19 @@ function PreviewScreen({ config }: PreviewProps) {
             </button>
           </div>
         )}
+        {/* pagination */}
 
-        {/* {config.modules.bulletPagination.enabled && (
-          <div className="swiper-pagination absolute w-full px-4 flex justify-center mt-4 pointer-events-auto"></div>
+        {config.parameters.paginationType.value === "Bullet" && (
+          <div className="swiper-pagination absolute  w-full px-4 mt-4 pointer-events-auto"></div>
         )}
 
-
-        {config.modules.fractionPagination.enabled && (
-          <span className="swiper-fraction z-10 bg-white font-semibold text-xs absolute w-full text-black px-3 py-1 rounded-full shadow-md"></span>
+        {config.parameters.paginationType.value === "Fraction" && (
+          <span className="swiper-fraction z-10 flex justify-center mx-auto font-semibold text-xs absolute text-black px-3 py-1"></span>
         )}
 
-        {config.modules.progressPagination.enabled && (
-          <div className="swiper-pagination"></div>
-        )} */}
+        {config.parameters.paginationType.value === "Progressbar" && (
+          <div className="swiper-progress-pagination"></div>
+        )}
       </div>
     </div>
   );
