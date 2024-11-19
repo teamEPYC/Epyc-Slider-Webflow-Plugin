@@ -1,4 +1,10 @@
-import { ArrowLeft, ArrowLeftRight, Box, Layers } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowLeftRight,
+  Box,
+  FlipHorizontal,
+  Layers,
+} from "lucide-react";
 import React from "react";
 import { SliderConfig } from "../types/slider-config";
 import { insertCustomConfigSliderComponent } from "../lib/slider-utils";
@@ -14,25 +20,6 @@ type Props = {
 };
 
 function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
-  const handlePaginationToggle = (key: string) => {
-    Object.entries(config.modules).forEach(([moduleKey, module]) => {
-      const isPaginationType =
-        moduleKey === "BulletPagination" ||
-        moduleKey === "FractionPagination" ||
-        moduleKey === "ProgressPagination";
-
-      if (isPaginationType) {
-        updateConfig(
-          "modules",
-          moduleKey,
-          moduleKey === key
-            ? { ...module, enabled: !module.enabled }
-            : { ...module, enabled: false }
-        );
-      }
-    });
-  };
-
   return (
     <div className="bg-[#232323] border-r border-neutral-800 flex flex-col">
       <div className="flex-1 overflow-y-auto">
@@ -126,6 +113,30 @@ function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
           </h2>
 
           <div className="space-y-4">
+            <div className="flex w-full flex-col justify-between">
+              <div className="flex items-center gap-3 ">
+                <FlipHorizontal className="w-4 h-4 text-white" />
+                <span className="text-sm text-neutral-200">
+                  {config.parameters.paginationType.label}
+                </span>
+              </div>
+              <select
+                value={config.parameters.paginationType.value}
+                onChange={(e) =>
+                  updateConfig("parameters", "paginationType", {
+                    ...config.parameters.paginationType,
+                    value: e.target.value,
+                  })
+                }
+                className="mt-2 h-8 bg-[#2a2a2a] border border-neutral-700 rounded-md px-2 text-sm text-neutral-200"
+              >
+                {config.parameters.paginationType.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
             {Object.entries(config.modules).map(([key, module]) => {
               const Icon = module.icon;
               return (
@@ -138,16 +149,10 @@ function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
                   </div>
                   <button
                     onClick={() =>
-                      [
-                        "bulletPagination",
-                        "fractionPagination",
-                        "progressPagination",
-                      ].includes(key)
-                        ? handlePaginationToggle(key)
-                        : updateConfig("modules", key, {
-                            ...module,
-                            enabled: !module.enabled,
-                          })
+                      updateConfig("modules", key, {
+                        ...module,
+                        enabled: !module.enabled,
+                      })
                     }
                     className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border border-neutral-700 transition-colors duration-200 ease-in-out ${
                       module.enabled ? "bg-blue-600" : "bg-neutral-700"

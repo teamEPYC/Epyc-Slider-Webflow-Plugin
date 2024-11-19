@@ -22,6 +22,12 @@ export type SliderConfig = {
       icon: typeof Code2;
       options: Array<string | number>;
     };
+    paginationType: {
+      value: "None" | "Bullet" | "Progressbar" | "Fraction";
+      label: string;
+      icon: typeof MoreHorizontal;
+      options: Array<"None" | "Bullet" | "Progressbar" | "Fraction">;
+    };
     spaceBetweenSlides: {
       value: number;
       label: string;
@@ -49,6 +55,13 @@ export const defaultSliderConfig: SliderConfig = {
       icon: Code2,
       options: ["horizontal", "vertical"],
     },
+    paginationType: {
+      value: "None",
+      icon: MoreHorizontal,
+      label: " Pagination Type",
+      options: ["None", "Bullet", "Progressbar", "Fraction"],
+    },
+
     slidesPerView: {
       value: "auto",
       label: "Slides per view",
@@ -69,21 +82,6 @@ export const defaultSliderConfig: SliderConfig = {
       enabled: false,
       label: "Navigation",
       icon: Code2,
-    },
-    bulletPagination: {
-      enabled: false,
-      label: "Bullet Pagination",
-      icon: MoreHorizontal,
-    },
-    fractionPagination: {
-      enabled: false,
-      label: "Fraction Pagination",
-      icon: MoreHorizontal,
-    },
-    progressPagination: {
-      enabled: false,
-      label: "Progress Pagination",
-      icon: MoreHorizontal,
     },
     autoplay: {
       enabled: true,

@@ -184,7 +184,7 @@ export const insertCustomConfigSliderComponent = async ({
       );
     }
 
-    if (config.modules.bulletPagination.enabled) {
+    if (config.parameters.paginationType.value === "Bullet") {
       styles.bulletPagination.bulletStyle.setProperties({
         height: "16px",
         width: "16px",
@@ -193,36 +193,32 @@ export const insertCustomConfigSliderComponent = async ({
       styles.bulletPagination.activeBulletStyle.setProperties({
         "background-color": "green",
       });
-      await createBulletPagination(
-        sliderAttributesDiv,
-        styles.bulletPagination
-      );
     }
 
-    if (config.modules.fractionPagination.enabled) {
-      await setCustomAttribute(
-        sliderAttributesDiv,
-        "epyc-pagination-type",
-        "fraction"
-      );
-      await createFractionPagination(
-        sliderAttributesDiv,
-        styles.fractionPagination
-      );
+    if (config.parameters.paginationType.value !== "None") {
+      if (config.parameters.paginationType.value === "Fraction") {
+        await setCustomAttribute(
+          sliderAttributesDiv,
+          "epyc-pagination-type",
+          "fraction"
+        );
+        await createFractionPagination(
+          sliderAttributesDiv,
+          styles.fractionPagination
+        );
+      }
+      if (config.parameters.paginationType.value === "Progressbar") {
+        await setCustomAttribute(
+          sliderAttributesDiv,
+          "epyc-pagination-type",
+          "progress"
+        );
+        await createProgressPagination(
+          sliderAttributesDiv,
+          styles.progressPagination
+        );
+      }
     }
-
-    if (config.modules.progressPagination.enabled) {
-      await setCustomAttribute(
-        sliderAttributesDiv,
-        "epyc-pagination-type",
-        "progress"
-      );
-      await createProgressPagination(
-        sliderAttributesDiv,
-        styles.progressPagination
-      );
-    }
-
     // Set custom attributes for all enabled features
     const attributes = [
       { key: "epyc-autoplay", value: config.modules.autoplay.enabled },

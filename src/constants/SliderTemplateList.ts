@@ -32,24 +32,15 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "None",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
       navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: false,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
       autoplay: { enabled: false, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: false,
@@ -91,24 +82,15 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "Bullet",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
       navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: false,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
       autoplay: { enabled: true, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: false,
@@ -146,24 +128,15 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "None",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
       navigation: { enabled: true, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: true,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
       autoplay: { enabled: true, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: true,
@@ -205,24 +178,15 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "Progressbar",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
       navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: true,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
       autoplay: { enabled: true, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: false,
@@ -260,24 +224,15 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "Fraction",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
       navigation: { enabled: true, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: false,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
       autoplay: { enabled: true, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: false,
@@ -315,24 +270,15 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "None",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
       navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: false,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
       autoplay: { enabled: true, label: "Autoplay", icon: Timer },
       keyboardControl: {
         enabled: false,
@@ -374,27 +320,18 @@ export const sliderTempelateList: SliderConfig[] = [
         max: 100,
         step: 1,
       },
+      paginationType: {
+        value: "Bullet",
+        label: "Pagination Type",
+        icon: MoreHorizontal,
+        options: ["None", "Bullet", "Progressbar", "Fraction"],
+      },
     },
     modules: {
-      navigation: { enabled: true, label: "Navigation", icon: Code2 },
-      bulletPagination: {
-        enabled: false,
-        label: "Bullet Pagination",
-        icon: MoreHorizontal,
-      },
-      fractionPagination: {
-        enabled: false,
-        label: "Fraction Pagination",
-        icon: MoreHorizontal,
-      },
-      progressPagination: {
-        enabled: false,
-        label: "Progress Pagination",
-        icon: MoreHorizontal,
-      },
+      navigation: { enabled: false, label: "Navigation", icon: Code2 },
       autoplay: { enabled: true, label: "Autoplay", icon: Timer },
       keyboardControl: {
-        enabled: true,
+        enabled: false,
         label: "Keyboard control",
         icon: Keyboard,
       },

@@ -54,21 +54,21 @@ function PreviewScreen({ config }: PreviewProps) {
                 }
               : false
           }
-          pagination={
-            config.modules.bulletPagination.enabled
-              ? { clickable: true, el: ".swiper-pagination" }
-              : config.modules.fractionPagination.enabled
-              ? {
-                  type: "fraction",
-                  el: ".swiper-fraction",
-                }
-              : config.modules.progressPagination.enabled
-              ? {
-                  el: ".swiper-pagination",
-                  type: "progressbar",
-                }
-              : false
-          }
+          // pagination={
+          //   config.modules.bulletPagination.enabled
+          //     ? { clickable: true, el: ".swiper-pagination" }
+          //     : config.modules.fractionPagination.enabled
+          //     ? {
+          //         type: "fraction",
+          //         el: ".swiper-fraction",
+          //       }
+          //     : config.modules.progressPagination.enabled
+          //     ? {
+          //         el: ".swiper-pagination",
+          //         type: "progressbar",
+          //       }
+          //     : false
+          // }
           onSlideChange={(swiper) =>
             console.log(`Current Slide: ${swiper.activeIndex + 1}`)
           }
@@ -98,20 +98,18 @@ function PreviewScreen({ config }: PreviewProps) {
           </div>
         )}
 
-        {/* Bullet Pagination */}
-        {config.modules.bulletPagination.enabled && (
+        {/* {config.modules.bulletPagination.enabled && (
           <div className="swiper-pagination absolute w-full px-4 flex justify-center mt-4 pointer-events-auto"></div>
         )}
 
-        {/* Fraction Pagination */}
+
         {config.modules.fractionPagination.enabled && (
           <span className="swiper-fraction z-10 bg-white font-semibold text-xs absolute w-full text-black px-3 py-1 rounded-full shadow-md"></span>
         )}
 
-        {/* Progress Pagination */}
         {config.modules.progressPagination.enabled && (
           <div className="swiper-pagination"></div>
-        )}
+        )} */}
       </div>
     </div>
   );
