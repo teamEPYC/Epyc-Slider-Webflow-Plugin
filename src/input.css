@@ -15,5 +15,5 @@
 }
 
 .swiper-pagination-progressbar {
-  position: absolute;
+  position: absolute !important;
 }

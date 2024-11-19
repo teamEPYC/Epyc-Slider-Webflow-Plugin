@@ -104,6 +104,9 @@ export async function createProgressPagination(parentDiv: any, styles: any) {
 
 export async function createSliderStructure(parentDiv: any) {
   const swiperStyle = await getOrCreateStyle("swiper");
+  await swiperStyle.setProperties({
+    height: "500px",
+  });
   const swiperDiv = await parentDiv.append(webflow.elementPresets.DOM);
   await swiperDiv.setTag("div");
   await swiperDiv.setStyles([swiperStyle]);
@@ -170,6 +173,9 @@ export const insertCustomConfigSliderComponent = async ({
         currentFractionStyle: await getOrCreateStyle("swiper-fraction-current"),
         totalFractionStyle: await getOrCreateStyle("swiper-fraction-total"),
       },
+      verticalScrolling: {
+        height: await getOrCreateStyle("vertical-direction-height"),
+      },
       progressPagination: {
         wrapperStyle: await getOrCreateStyle("swiper-bullet-wrapper"),
         progressStyle: await getOrCreateStyle("swiper-progress-fill"),
@@ -211,7 +217,7 @@ export const insertCustomConfigSliderComponent = async ({
         await setCustomAttribute(
           sliderAttributesDiv,
           "epyc-pagination-type",
-          "progress"
+          "progressbar"
         );
         await createProgressPagination(
           sliderAttributesDiv,

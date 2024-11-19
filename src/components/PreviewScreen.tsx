@@ -81,33 +81,18 @@ function PreviewScreen({ config }: PreviewProps) {
               : false
           }
           pagination={getPaginationConfig()}
-          // pagination={
-          //   config.parameters.paginationType.value === "Bullet"
-          //     ? { clickable: true, el: ".swiper-pagination" }
-          //     : config.parameters.paginationType.value === "Fraction"
-          //     ? {
-          //         type: "fraction",
-          //         el: ".swiper-fraction",
-          //       }
-          //     : config.parameters.paginationType.value === "Progressbar"
-          //     ? {
-          //         el: ".swiper-progress-pagination",
-          //         type: "progressbar",
-          //       }
-          //     : false
-          // }
           onSlideChange={(swiper) =>
             console.log(`Current Slide: ${swiper.activeIndex + 1}`)
           }
           className="h-full "
         >
-          <div className="flex h-full w-full items-center justify-center bg-green-300">
+          <div className="flex h-full w-full items-center justify-center">
             {[1, 2, 3, 4, 5, 6].map((slideNum) => (
               <SwiperSlide
-                className="h-[400px] bg-gray-200 flex items-center justify-center"
+                className="h-[400px] w-full bg-gray-200 flex items-center justify-center"
                 key={slideNum}
               >
-                Slide {slideNum}
+                <span className="font-bold text-xs">Slide {slideNum}</span>
               </SwiperSlide>
             ))}
           </div>
@@ -135,7 +120,7 @@ function PreviewScreen({ config }: PreviewProps) {
         )}
 
         {config.parameters.paginationType.value === "Progressbar" && (
-          <div className="swiper-progress-pagination"></div>
+          <div className="swiper-progress-pagination absolute w-full bottom-0 z-10"></div>
         )}
       </div>
     </div>
