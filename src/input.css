@@ -17,3 +17,7 @@
 .swiper-pagination-progressbar {
   position: absolute !important;
 }
+.swiper-slide,
+swiper-slide {
+  display: flex !important;
+}
