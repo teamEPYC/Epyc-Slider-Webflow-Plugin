@@ -11,15 +11,15 @@ import { insertCustomConfigSliderComponent } from "../lib/slider-utils";
 
 type Props = {
   config: SliderConfig;
+  resetconfig: Function;
   updateConfig: (
     type: "parameters" | "modules",
     key: string,
     value: any
   ) => void;
-  setIsCustomizeModeOn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
+function Sidebar({ config, resetconfig, updateConfig }: Props) {
   return (
     <div className="bg-[#232323] border-r border-neutral-800 flex flex-col">
       <div className="flex-1 overflow-y-auto">
@@ -173,7 +173,9 @@ function Sidebar({ setIsCustomizeModeOn, config, updateConfig }: Props) {
       <div className="border-t border-neutral-800 p-4 flex items-center justify-between bg-[#232323]">
         <button
           type="button"
-          onClick={() => setIsCustomizeModeOn(false)}
+          onClick={() => {
+            resetconfig();
+          }}
           className="flex items-center px-4 py-2 text-sm text-neutral-200 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />

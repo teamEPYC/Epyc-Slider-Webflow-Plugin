@@ -18,6 +18,10 @@ const App: React.FC = () => {
   const [isCustomizeModeOn, setIsCustomizeModeOn] = useState<boolean>(false);
   const [config, setConfig] = useState<SliderConfig>(defaultSliderConfig);
 
+  function resetconfig() {
+    setIsCustomizeModeOn(false);
+    setConfig(defaultSliderConfig);
+  }
   const updateConfig = (
     type: "parameters" | "modules",
     key: string,
@@ -36,9 +40,9 @@ const App: React.FC = () => {
     return (
       <div className="flex h-screen bg-[#1a1a1a]">
         <Sidebar
-          setIsCustomizeModeOn={setIsCustomizeModeOn}
           config={config}
           updateConfig={updateConfig}
+          resetconfig={resetconfig}
         />
 
         <div className="flex justify-center items-center p-8">
