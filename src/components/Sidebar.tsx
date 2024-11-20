@@ -101,8 +101,22 @@ function Sidebar({ config, resetconfig, updateConfig }: Props) {
                   step={config.parameters.spaceBetweenSlides.step}
                   className="flex-1"
                 />
-                <span className="text-sm text-neutral-400 min-w-[48px]">
-                  {config.parameters.spaceBetweenSlides.value}px
+                <span className="text-sm text-neutral-400 min-w-[48px] flex items-center">
+                  <input
+                    className="bg-[#2a2a2a] border border-neutral-700 rounded-md py-1 px-1 text-sm text-neutral-200"
+                    onChange={(e) =>
+                      updateConfig("parameters", "spaceBetweenSlides", {
+                        ...config.parameters.spaceBetweenSlides,
+                        value: Number(e.target.value),
+                      })
+                    }
+                    type="number"
+                    value={config.parameters.spaceBetweenSlides.value}
+                    min={config.parameters.spaceBetweenSlides.min}
+                    max={config.parameters.spaceBetweenSlides.max}
+                    step={config.parameters.spaceBetweenSlides.step}
+                  ></input>
+                  <p className="text-sm ml-1 text-neutral-400">px</p>
                 </span>
               </div>
             </div>

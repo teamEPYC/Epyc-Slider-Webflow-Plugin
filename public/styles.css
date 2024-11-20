@@ -670,6 +670,10 @@ body {
   margin-top: 2rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -772,6 +776,26 @@ body {
 
 .w-full {
   width: 100%;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-\[400px\] {
+  width: 400px;
+}
+
+.w-\[380px\] {
+  width: 380px;
+}
+
+.w-\[360px\] {
+  width: 360px;
 }
 
 .min-w-\[48px\] {
@@ -1050,6 +1074,11 @@ body {
   padding-bottom: 0.5rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .pl-8 {
   padding-left: 2rem;
 }
@@ -1114,6 +1143,11 @@ body {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-neutral-100 {
+  --tw-text-opacity: 1;
+  color: rgb(245 245 245 / var(--tw-text-opacity));
 }
 
 .opacity-50 {

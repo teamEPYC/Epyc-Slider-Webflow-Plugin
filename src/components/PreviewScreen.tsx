@@ -48,7 +48,7 @@ function PreviewScreen({ config }: PreviewProps) {
   console.log(config);
   return (
     <div className="h-[400px]  flex items-center justify-center p-8 overflow-hidden rounded-lg">
-      <div className="epyc-slider-attributes relative h-full w-[420px] overflow-hidden bg-white rounded-lg shadow-lg">
+      <div className="epyc-slider-attributes relative h-full w-[360px] overflow-hidden bg-white rounded-lg shadow-lg">
         <Swiper
           key={swiperKey}
           modules={[
