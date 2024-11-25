@@ -45,7 +45,6 @@ function PreviewScreen({ config }: PreviewProps) {
     }
   };
 
-  console.log(config);
   return (
     <div className="h-[400px]  flex items-center justify-center p-8 overflow-hidden rounded-lg">
       <div className="epyc-slider-attributes relative h-full w-[360px] overflow-hidden bg-white rounded-lg shadow-lg">
@@ -81,9 +80,6 @@ function PreviewScreen({ config }: PreviewProps) {
               : false
           }
           pagination={getPaginationConfig()}
-          onSlideChange={(swiper) =>
-            console.log(`Current Slide: ${swiper.activeIndex + 1}`)
-          }
           className="h-full "
         >
           <div className="flex h-full w-full items-center justify-center">

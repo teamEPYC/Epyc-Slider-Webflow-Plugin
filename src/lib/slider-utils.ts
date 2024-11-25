@@ -1,4 +1,6 @@
 import { SliderConfig } from "src/types/slider-config";
+import { WebflowClient } from "webflow-api";
+import axiosInstance from "./axiosInstance";
 
 export async function applyStyles(element: any, styles: any[]) {
   if (element && styles.length > 0) {
@@ -33,22 +35,17 @@ export async function createButtonNavigation(parentDiv: any, styles: any) {
   await applyStyles(buttonNavigationDiv, [wrapperStyle]);
 
   const prevNavigation = await buttonNavigationDiv.append(
-    webflow.elementPresets.DivBlock
-  );
-  const prevNavigationText = await prevNavigation.append(
-    webflow.elementPresets.Paragraph
+    webflow.elementPresets.Button
   );
   await applyStyles(prevNavigation, [prevStyle]);
-  await prevNavigationText.setTextContent("prev");
+  prevNavigation.setTextContent("Prev");
 
   const nextNavigation = await buttonNavigationDiv.append(
-    webflow.elementPresets.DivBlock
+    webflow.elementPresets.Button
   );
-  const nextNavigationText = await nextNavigation.append(
-    webflow.elementPresets.Paragraph
-  );
+
   await applyStyles(nextNavigation, [nextStyle]);
-  await nextNavigationText.setTextContent("next");
+  nextNavigation.setTextContent("Next");
 }
 
 export async function createBulletPagination(parentDiv: any, styles: any) {
@@ -120,13 +117,17 @@ export async function createSliderStructure(parentDiv: any) {
   slideStyle.setProperties({
     "background-color": "gray",
   });
+  const deletSlide = await getOrCreateStyle("delete-slide");
+  deletSlide.setProperties({});
 
   // Create sample slides
   for (let i = 1; i <= 6; i++) {
     const slide = await swiperWrapperDiv.append(webflow.elementPresets.DOM);
     await slide.setTag("div");
     await slide.setStyles([slideStyle]);
-    await slide.setTextContent(`slide ${i}`);
+    const deleteSlide = await swiperWrapperDiv.append(
+      webflow.elementPresets.DivBlock
+    );
   }
 
   return swiperDiv;
@@ -140,9 +141,31 @@ export const insertCustomConfigSliderComponent = async ({
   config: SliderConfig;
 }) => {
   try {
+    const currentPageID = await webflow.getCurrentPage();
+    console.log({ page: currentPageID });
+    const handleApply = async () => {
+      try {
+        const response = await axiosInstance.put(
+          `/custom-code/pages/${currentPageID.id}/upsertCustomCode`,
+          {
+            selectedScript: "headlink",
+            version: "0.0.1",
+          }
+        );
+        console.log(response);
+      } catch (error) {
+        console.error("Error applying script:", error);
+      }
+    };
+
+    handleApply();
     const el = await webflow.getSelectedElement();
     if (!el?.children) {
-      console.error("No element selected");
+      webflow.notify({
+        type: "Error",
+        message:
+          "Please select a element whaich has children property accesible",
+      });
       return;
     }
 
