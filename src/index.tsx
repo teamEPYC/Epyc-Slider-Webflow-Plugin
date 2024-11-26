@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { sliderTempelateList } from "./constants/SliderTemplateList";
-import Sidebar from "./components/Sidebar";
 import { Settings } from "lucide-react";
 import { defaultSliderConfig, SliderConfig } from "./types/slider-config";
 import PreviewScreen from "./components/PreviewScreen";

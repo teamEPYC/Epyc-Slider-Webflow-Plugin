@@ -1,10 +1,4 @@
-import {
-  ArrowLeft,
-  ArrowLeftRight,
-  Box,
-  FlipHorizontal,
-  Layers,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import React from "react";
 import { insertCustomConfigSliderComponent } from "../lib/slider-utils";
 import {
@@ -40,6 +34,7 @@ function CustomizationSidebar({
   config,
   resetconfig,
 }: Props) {
+  console.log(effectsConfig);
   return (
     <div className="bg-[#232323] border-r border-neutral-800 flex flex-col">
       <div className="flex-1 overflow-y-auto">
@@ -197,6 +192,46 @@ function CustomizationSidebar({
                     </button>
                   </div>
                 );
+              })}
+            </div>
+            <h2 className="text-sm font-semibold text-neutral-400 mt-8 mb-4">
+              EFFECT
+            </h2>
+            <div className="space-y-4">
+              {Object.entries(effectsConfig).map(([key, option]) => {
+                const paramKey = key as keyof EffectsConfig;
+                if (paramKey === "effect") {
+                  const Icon = option.icon;
+                  return (
+                    <div
+                      key={key}
+                      className="flex w-full flex-col justify-between"
+                    >
+                      <div className="flex items-center gap-3 ">
+                        <Icon className="w-4 h-4 text-white" />
+                        <span className="text-sm text-neutral-200">
+                          {option.label}
+                        </span>
+                      </div>
+                      <select
+                        value={option.value}
+                        onChange={(e) => {
+                          updateEffectValue(
+                            paramKey,
+                            e.target.value.toString()
+                          );
+                        }}
+                        className="mt-2 h-8 bg-[#2a2a2a] border border-neutral-700 rounded-md px-2 text-sm text-neutral-200"
+                      >
+                        {option.options.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                }
               })}
             </div>
           </div>

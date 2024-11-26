@@ -345,6 +345,26 @@ export const insertCustomConfigSliderComponent = async ({
         key: "epyc-space-between",
         value: config.parameters.spaceBetweenSlides.value,
       },
+      {
+        key: "epyc-slides-per-group",
+        value: config.parameters.slidesPerGroup.value,
+      },
+      {
+        key: "epyc-free-mode",
+        value: config.modules.freeMode.value,
+      },
+      {
+        key: "epyc-loop",
+        value: config.parameters.loopMode.value,
+      },
+      {
+        key: "epyc-auto-height",
+        value: config.parameters.autoHeight.value,
+      },
+      {
+        key: "epyc-effect",
+        value: config.effects.effect.value,
+      },
     ];
 
     for (const { key, value } of attributes) {
