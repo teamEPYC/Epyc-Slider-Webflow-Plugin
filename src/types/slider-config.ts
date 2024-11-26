@@ -5,6 +5,9 @@ import {
   Mouse,
   RefreshCcw,
   MoreHorizontal,
+  TimerIcon,
+  Group,
+  GroupIcon,
 } from "lucide-react";
 
 export type SliderConfig = {
@@ -36,6 +39,20 @@ export type SliderConfig = {
       max: number;
       step: number;
     };
+    transitionSpeed: {
+      value: number;
+      lable: string;
+      icon: typeof TimerIcon;
+      min: number;
+      max: number;
+      step: number;
+    };
+    slidesPerGroup: {
+      value: number;
+      label: string;
+      icon: typeof Group;
+      options: Array<string | number>;
+    };
   };
   modules: {
     [key: string]: {
@@ -49,6 +66,12 @@ export type SliderConfig = {
 export const defaultSliderConfig: SliderConfig = {
   name: "",
   parameters: {
+    slidesPerGroup: {
+      value: 1,
+      label: "Slides per group",
+      icon: GroupIcon,
+      options: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    },
     slideDirection: {
       value: "horizontal",
       label: "Slide direction",
@@ -60,6 +83,14 @@ export const defaultSliderConfig: SliderConfig = {
       icon: MoreHorizontal,
       label: " Pagination Type",
       options: ["None", "Bullet", "Progressbar", "Fraction"],
+    },
+    transitionSpeed: {
+      icon: TimerIcon,
+      value: 300,
+      max: 1000,
+      min: 50,
+      lable: "Slider Transition",
+      step: 1,
     },
 
     slidesPerView: {

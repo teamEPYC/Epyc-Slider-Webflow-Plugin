@@ -6,6 +6,14 @@ import { Settings } from "lucide-react";
 import { defaultSliderConfig, SliderConfig } from "./types/slider-config";
 import PreviewScreen from "./components/PreviewScreen";
 import { insertCustomConfigSliderComponent } from "./lib/slider-utils";
+import {
+  EffectsConfig,
+  initialSliderConfig,
+  ModuleConfig,
+  ParametersConfig,
+  SliderTypesConfig,
+} from "./types/sliderTypes";
+import CustomizationSidebar from "./components/CustomizationSidebar";
 
 export const getOrCreateStyle = async (styleName: string) => {
   let style = await webflow.getStyleByName(styleName);
@@ -35,15 +43,72 @@ const App: React.FC = () => {
       },
     }));
   };
+  // new code starts
+  const [sliderConfig, setSliderConfig] =
+    useState<SliderTypesConfig>(initialSliderConfig);
+
+  const updateModuleValue = <K extends keyof Omit<ModuleConfig, "autoplay">>(
+    key: K,
+    value: ModuleConfig[K]["value"]
+  ) => {
+    setSliderConfig((prev) => ({
+      ...prev,
+      modules: {
+        ...prev.modules,
+        [key]: { ...prev.modules[key], value },
+      },
+    }));
+  };
+
+  const updateParameterValue = <K extends keyof ParametersConfig>(
+    key: K,
+    value: ParametersConfig[K]["value"]
+  ) => {
+    console.log(value, "key");
+    setSliderConfig((prev) => ({
+      ...prev,
+      parameters: {
+        ...prev.parameters,
+        [key]: { ...prev.parameters[key], value },
+      },
+    }));
+  };
+
+  const updateEffectValue = <K extends keyof EffectsConfig>(
+    key: K,
+    value: EffectsConfig[K]["value"]
+  ) => {
+    setSliderConfig((prev) => ({
+      ...prev,
+      effects: {
+        ...prev.effects,
+        [key]: { ...prev.effects[key], value },
+      },
+    }));
+  };
+
+  console.log({ TestingConfig: sliderConfig });
+  // new code ends
 
   if (isCustomizeModeOn) {
     return (
       <div className="flex h-screen bg-[#1a1a1a]">
-        <Sidebar
-          config={config}
+        <CustomizationSidebar
+          parametersConfig={sliderConfig.parameters}
+          effectsConfig={sliderConfig.effects}
+          moduleConfig={sliderConfig.modules}
+          updateParameterValue={updateParameterValue}
+          updateEffectValue={updateEffectValue}
+          onModuleUpdate={updateModuleValue}
+          config={sliderConfig}
           updateConfig={updateConfig}
           resetconfig={resetconfig}
         />
+        {/* <Sidebar
+          config={config}
+          updateConfig={updateConfig}
+          resetconfig={resetconfig}
+        /> */}
 
         <div className="flex justify-center items-center p-8">
           <PreviewScreen config={config} />
@@ -105,9 +170,9 @@ const App: React.FC = () => {
                       </button>
                       <button
                         type="button"
-                        onClick={() =>
-                          insertCustomConfigSliderComponent({ config: preset })
-                        }
+                        // onClick={() =>
+                        //   insertCustomConfigSliderComponent({ config: preset })
+                        // }
                         className="border border-neutral-700 text-neutral-300 px-2 py-1 rounded-md hover:border-neutral-600 hover:text-white transition-colors duration-200"
                       >
                         Import

@@ -7,6 +7,36 @@ import {
   RefreshCcw,
 } from "lucide-react";
 import { SliderConfig } from "src/types/slider-config";
+const defaults = {
+  booleanFalse: (label = "Setting", icon = Code2) => {
+    return {
+      enabled: false,
+      label,
+      icon,
+    };
+  },
+  transitionSpeed: {
+    value: 300, // ms
+    lable: "",
+    icon: undefined,
+    min: 200,
+    max: 400,
+    step: 0,
+  },
+  slidesPerGroup: {
+    value: 1,
+    label: "",
+    icon: undefined,
+    options: [],
+  },
+};
+const defaultModules = {
+  navigation: defaults.booleanFalse("Navigation", Code2),
+  autoplay: defaults.booleanFalse("Autoplay", Timer),
+  keyboardControl: defaults.booleanFalse("Keyboard control", Keyboard),
+  mousewheelControl: defaults.booleanFalse("Mousewheel control", Mouse),
+  infiniteLoop: defaults.booleanFalse("Infinite loop", RefreshCcw),
+};
 
 export const sliderTempelateList: SliderConfig[] = [
   {
@@ -38,26 +68,14 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: false, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: false,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        ...defaults.transitionSpeed,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
-      },
-      infiniteLoop: {
-        enabled: false,
-        label: "Infinite loop",
-        icon: RefreshCcw,
+      slidesPerGroup: {
+        ...defaults.slidesPerGroup,
       },
     },
+    modules: defaultModules,
   },
   {
     name: "Vertical Loop Slider",
@@ -88,22 +106,22 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: false,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        value: 0,
+        lable: "",
+        icon: undefined,
+        min: 0,
+        max: 0,
+        step: 0,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
+      slidesPerGroup: {
+        value: 0,
+        label: "",
+        icon: undefined,
+        options: [],
       },
-      infiniteLoop: { enabled: true, label: "Infinite loop", icon: RefreshCcw },
     },
+    modules: defaultModules,
   },
   {
     name: "3 Slides Per View",
@@ -134,26 +152,22 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: true, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: true,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        value: 0,
+        lable: "",
+        icon: undefined,
+        min: 0,
+        max: 0,
+        step: 0,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
-      },
-      infiniteLoop: {
-        enabled: false,
-        label: "Infinite loop",
-        icon: RefreshCcw,
+      slidesPerGroup: {
+        value: 0,
+        label: "",
+        icon: undefined,
+        options: [],
       },
     },
+    modules: defaultModules,
   },
   {
     name: "Autoplay Vertical Slider",
@@ -184,22 +198,22 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: false,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        value: 0,
+        lable: "",
+        icon: undefined,
+        min: 0,
+        max: 0,
+        step: 0,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
+      slidesPerGroup: {
+        value: 0,
+        label: "",
+        icon: undefined,
+        options: [],
       },
-      infiniteLoop: { enabled: true, label: "Infinite loop", icon: RefreshCcw },
     },
+    modules: defaultModules,
   },
   {
     name: "Infinite Horizontal Loop",
@@ -230,22 +244,22 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: true, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: false,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        value: 0,
+        lable: "",
+        icon: undefined,
+        min: 0,
+        max: 0,
+        step: 0,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
+      slidesPerGroup: {
+        value: 0,
+        label: "",
+        icon: undefined,
+        options: [],
       },
-      infiniteLoop: { enabled: true, label: "Infinite loop", icon: RefreshCcw },
     },
+    modules: defaultModules,
   },
   {
     name: "Minimalist Autoplay Slider",
@@ -276,26 +290,22 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: false,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        value: 0,
+        lable: "",
+        icon: undefined,
+        min: 0,
+        max: 0,
+        step: 0,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
-      },
-      infiniteLoop: {
-        enabled: false,
-        label: "Infinite loop",
-        icon: RefreshCcw,
+      slidesPerGroup: {
+        value: 0,
+        label: "",
+        icon: undefined,
+        options: [],
       },
     },
+    modules: defaultModules,
   },
   {
     name: "Two Slides Loop",
@@ -326,21 +336,21 @@ export const sliderTempelateList: SliderConfig[] = [
         icon: MoreHorizontal,
         options: ["None", "Bullet", "Progressbar", "Fraction"],
       },
-    },
-    modules: {
-      navigation: { enabled: false, label: "Navigation", icon: Code2 },
-      autoplay: { enabled: true, label: "Autoplay", icon: Timer },
-      keyboardControl: {
-        enabled: false,
-        label: "Keyboard control",
-        icon: Keyboard,
+      transitionSpeed: {
+        value: 0,
+        lable: "",
+        icon: undefined,
+        min: 0,
+        max: 0,
+        step: 0,
       },
-      mousewheelControl: {
-        enabled: false,
-        label: "Mousewheel control",
-        icon: Mouse,
+      slidesPerGroup: {
+        value: 0,
+        label: "",
+        icon: undefined,
+        options: [],
       },
-      infiniteLoop: { enabled: true, label: "Infinite loop", icon: RefreshCcw },
     },
+    modules: defaultModules,
   },
 ];

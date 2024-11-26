@@ -1,6 +1,5 @@
-import { SliderConfig } from "src/types/slider-config";
-import { WebflowClient } from "webflow-api";
 import axiosInstance from "./axiosInstance";
+import { SliderTypesConfig } from "src/types/sliderTypes";
 
 export async function applyStyles(element: any, styles: any[]) {
   if (element && styles.length > 0) {
@@ -28,20 +27,19 @@ export async function getOrCreateStyle(styleName: string) {
 
 export async function createButtonNavigation(parentDiv: any, styles: any) {
   const { wrapperStyle, prevStyle, nextStyle } = styles;
-
   const buttonNavigationDiv = await parentDiv.append(
     webflow.elementPresets.DivBlock
   );
   await applyStyles(buttonNavigationDiv, [wrapperStyle]);
 
   const prevNavigation = await buttonNavigationDiv.append(
-    webflow.elementPresets.Button
+    webflow.elementPresets.DOM
   );
   await applyStyles(prevNavigation, [prevStyle]);
   prevNavigation.setTextContent("Prev");
 
   const nextNavigation = await buttonNavigationDiv.append(
-    webflow.elementPresets.Button
+    webflow.elementPresets.DOM
   );
 
   await applyStyles(nextNavigation, [nextStyle]);
@@ -94,8 +92,9 @@ export async function createProgressPagination(parentDiv: any, styles: any) {
   await applyStyles(progressPaginationDiv, [wrapperStyle]);
 
   const progressDiv = await progressPaginationDiv.append(
-    webflow.elementPresets.DivBlock
+    webflow.elementPresets.DOM
   );
+  progressDiv.setTag("span");
   await applyStyles(progressDiv, [progressStyle]);
 }
 
@@ -114,20 +113,26 @@ export async function createSliderStructure(parentDiv: any) {
   await swiperWrapperDiv.setStyles([wrapperStyle]);
 
   const slideStyle = await getOrCreateStyle("swiper-slide");
-  slideStyle.setProperties({
+  await slideStyle.setProperties({
     "background-color": "gray",
   });
-  const deletSlide = await getOrCreateStyle("delete-slide");
-  deletSlide.setProperties({});
+  const deleteSlideStyle = await getOrCreateStyle("delete-slide");
+  deleteSlideStyle.setProperties({
+    display: "flex",
+    "align-content": "center",
+    "justify-content": "center",
+    "background-color": "gray",
+  });
 
   // Create sample slides
   for (let i = 1; i <= 6; i++) {
-    const slide = await swiperWrapperDiv.append(webflow.elementPresets.DOM);
-    await slide.setTag("div");
-    await slide.setStyles([slideStyle]);
-    const deleteSlide = await swiperWrapperDiv.append(
+    const slide = await swiperWrapperDiv.append(
       webflow.elementPresets.DivBlock
     );
+    await slide.setStyles([slideStyle]);
+    const deleteSlide = await slide.append(webflow.elementPresets.DOM);
+    await deleteSlide.setStyles([deleteSlideStyle]);
+    await deleteSlide.setTextContent(`slide ${i}`);
   }
 
   return swiperDiv;
@@ -138,27 +143,42 @@ export async function createSliderStructure(parentDiv: any) {
 export const insertCustomConfigSliderComponent = async ({
   config,
 }: {
-  config: SliderConfig;
+  config: SliderTypesConfig;
 }) => {
   try {
     const currentPageID = await webflow.getCurrentPage();
-    console.log({ page: currentPageID });
+    console.log(currentPageID.id);
+    const siteId = await webflow.getSiteInfo();
+    console.log(siteId);
     const handleApply = async () => {
       try {
+        console.log("Applying custom script to the page...");
+
         const response = await axiosInstance.put(
           `/custom-code/pages/${currentPageID.id}/upsertCustomCode`,
           {
-            selectedScript: "headlink",
+            selectedScript: "headerlink",
             version: "0.0.1",
+            siteId: siteId.siteId,
           }
         );
-        console.log(response);
+
+        console.log("Script applied successfully:", response.data);
       } catch (error) {
-        console.error("Error applying script:", error);
+        if (error.response) {
+          console.error("API Error:", {
+            status: error.response.status,
+            data: error.response.data,
+          });
+        } else if (error.request) {
+          console.error("Network Error:", error.request);
+        } else {
+          console.error("Error:", error.message);
+        }
       }
     };
-
     handleApply();
+
     const el = await webflow.getSelectedElement();
     if (!el?.children) {
       webflow.notify({
@@ -171,6 +191,9 @@ export const insertCustomConfigSliderComponent = async ({
 
     // Create main slider container
     const parentStyle = await getOrCreateStyle("epyc-slider-attributes");
+    parentStyle.setProperties({
+      position: "relative",
+    });
     const sliderAttributesDiv = await el.append(
       webflow.elementPresets.DivBlock
     );
@@ -206,26 +229,77 @@ export const insertCustomConfigSliderComponent = async ({
     };
 
     // Create navigation and pagination elements based on enabled modules
-    if (config.modules.navigation.enabled) {
+    if (config.modules.navigation.value) {
       await createButtonNavigation(
         sliderAttributesDiv,
         styles.buttonNavigation
       );
-    }
-
-    if (config.parameters.paginationType.value === "Bullet") {
-      styles.bulletPagination.bulletStyle.setProperties({
-        height: "16px",
-        width: "16px",
-        "background-color": "gray",
+      await styles.buttonNavigation.wrapperStyle.setProperties({
+        position: "absolute",
+        "z-index": "10",
+        bottom: "0",
+        display: "flex",
+        "justify-content": "space-between",
+        width: "100%",
+        "padding-left": "10px",
+        "padding-right": "10px",
+        "padding-bottom": "10px",
       });
-      styles.bulletPagination.activeBulletStyle.setProperties({
-        "background-color": "green",
+      await styles.buttonNavigation.prevStyle.setProperties({
+        "background-color": "white",
+        display: "flex",
+        "align-items": "center",
+        "justify-content": "center",
+        "padding-right": "4px",
+        "padding-left": "4px",
+        "padding-top": "4px",
+        "padding-bottom": "4px",
+        "border-end-end-radius": "4px",
+        "border-start-start-radius": "4px",
+        "font-size": "14px",
+        "font-weight": "600",
+      });
+
+      await styles.buttonNavigation.nextStyle.setProperties({
+        "background-color": "white",
+        display: "flex",
+        "align-items": "center",
+        "justify-content": "center",
+        "padding-right": "4px",
+        "padding-left": "4px",
+        "padding-top": "4px",
+        "padding-bottom": "4px",
+        "border-end-end-radius": "4px",
+        "border-start-start-radius": "4px",
+        "font-size": "14px",
+        "font-weight": "600",
       });
     }
-
-    if (config.parameters.paginationType.value !== "None") {
-      if (config.parameters.paginationType.value === "Fraction") {
+    if (config.modules.pagination.value !== "none") {
+      if (config.modules.pagination.value === "bullet") {
+        await createBulletPagination(
+          sliderAttributesDiv,
+          styles.bulletPagination
+        );
+        await styles.bulletPagination.wrapperStyle.setProperties({
+          position: "absolute",
+          "z-index": "10",
+          width: "100%",
+          display: "flex",
+          bottom: "0",
+          "justify-content": "center",
+        });
+        await styles.bulletPagination.bulletStyle.setProperties({
+          "margin-right": "5px",
+          height: "10px",
+          width: "10px",
+          "background-color": "white",
+        });
+        await styles.bulletPagination.activeBulletStyle.setProperties({
+          "background-color": "blue",
+        });
+      }
+      if (config.modules.pagination.value === "fraction") {
         await setCustomAttribute(
           sliderAttributesDiv,
           "epyc-pagination-type",
@@ -236,7 +310,7 @@ export const insertCustomConfigSliderComponent = async ({
           styles.fractionPagination
         );
       }
-      if (config.parameters.paginationType.value === "Progressbar") {
+      if (config.modules.pagination.value === "progressbar") {
         await setCustomAttribute(
           sliderAttributesDiv,
           "epyc-pagination-type",
@@ -246,17 +320,19 @@ export const insertCustomConfigSliderComponent = async ({
           sliderAttributesDiv,
           styles.progressPagination
         );
+        await styles.progressPagination.progressStyle.setProperties({
+          "background-color": "blue",
+        });
       }
     }
     // Set custom attributes for all enabled features
     const attributes = [
-      { key: "epyc-autoplay", value: config.modules.autoplay.enabled },
+      { key: "epyc-autoplay", value: config.modules.autoplay.value },
       {
         key: "epyc-mousewheel",
-        value: config.modules.mousewheelControl.enabled,
+        value: config.modules.mousewheelControl.value,
       },
-      { key: "epyc-keyboard", value: config.modules.keyboardControl.enabled },
-      { key: "epyc-loop", value: config.modules.infiniteLoop.enabled },
+      { key: "epyc-keyboard", value: config.modules.keyboardControl.value },
       {
         key: "epyc-direction",
         value: config.parameters.slideDirection.value,
