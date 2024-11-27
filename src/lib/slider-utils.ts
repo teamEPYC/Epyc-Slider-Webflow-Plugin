@@ -365,6 +365,14 @@ export const insertCustomConfigSliderComponent = async ({
         key: "epyc-effect",
         value: config.effects.effect.value,
       },
+      {
+        key: "epyc-grab-cursor",
+        value: config.modules.grabCusor.value,
+      },
+      {
+        key: "epyc-effect",
+        value: config.effects.effect.value,
+      },
     ];
 
     for (const { key, value } of attributes) {

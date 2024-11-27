@@ -13,29 +13,29 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { type SliderConfig } from "../types/slider-config";
+import { SliderTypesConfig } from "src/types/sliderTypes";
 
 interface PreviewProps {
-  config: SliderConfig;
+  config: SliderTypesConfig;
 }
 
 function PreviewScreen({ config }: PreviewProps) {
-  const swiperKey = `swiper-${config.parameters.paginationType.value}-${config.modules.autoplay.enabled}`;
+  const swiperKey = `swiper-${config.modules.pagination.value}-${config.modules.autoplay.value}`;
 
   const getPaginationConfig = () => {
-    switch (config.parameters.paginationType.value) {
-      case "Bullet":
+    switch (config.modules.pagination.value) {
+      case "bullet":
         const abc = config.parameters.slideDirection.value;
         return {
           clickable: true,
           el: ".swiper-pagination",
         };
-      case "Fraction":
+      case "fraction":
         return {
           type: "fraction" as const,
           el: ".swiper-fraction",
         };
-      case "Progressbar":
+      case "progressbar":
         return {
           type: "progressbar" as const,
           el: ".swiper-progress-pagination",
@@ -58,21 +58,21 @@ function PreviewScreen({ config }: PreviewProps) {
             Keyboard,
             Mousewheel,
           ]}
-          {...(config.modules.autoplay.enabled
+          {...(config.modules.autoplay.value
             ? {
                 autoplay: {
                   delay: 2500,
                 },
               }
             : {})}
-          loop={config.modules.infiniteLoop.enabled}
+          loop={config.parameters.loopMode.value}
           direction={config.parameters.slideDirection.value}
           slidesPerView={config.parameters.slidesPerView.value}
           spaceBetween={config.parameters.spaceBetweenSlides.value}
-          keyboard={{ enabled: config.modules.keyboardControl.enabled }}
-          mousewheel={{ enabled: config.modules.mousewheelControl.enabled }}
+          keyboard={{ enabled: config.modules.keyboardControl.value }}
+          mousewheel={{ enabled: config.modules.mousewheelControl.value }}
           navigation={
-            config.modules.navigation.enabled
+            config.modules.navigation.value
               ? {
                   nextEl: ".swiper-next",
                   prevEl: ".swiper-prev",
@@ -80,6 +80,9 @@ function PreviewScreen({ config }: PreviewProps) {
               : false
           }
           pagination={getPaginationConfig()}
+          slidesPerGroup={config.parameters.slidesPerGroup.value}
+          grabCursor={config.modules.grabCusor.value}
+          effect={config.effects.effect.value}
           className="h-full "
         >
           <div className="flex h-full w-full items-center justify-center">
@@ -95,7 +98,7 @@ function PreviewScreen({ config }: PreviewProps) {
         </Swiper>
 
         {/* Navigation */}
-        {config.modules.navigation.enabled && (
+        {config.modules.navigation.value && (
           <div className="absolute bottom-0 flex justify-between z-10 w-full px-4 py-2">
             <button className="swiper-prev bg-white rounded-full p-2 shadow-lg hover:bg-neutral-50 pointer-events-auto transition-colors">
               <ChevronLeft className="w-6 h-6" />
@@ -107,15 +110,15 @@ function PreviewScreen({ config }: PreviewProps) {
         )}
         {/* pagination */}
 
-        {config.parameters.paginationType.value === "Bullet" && (
+        {config.modules.pagination.value === "bullet" && (
           <div className="swiper-pagination absolute  w-full px-4 mt-4 pointer-events-auto"></div>
         )}
 
-        {config.parameters.paginationType.value === "Fraction" && (
+        {config.modules.pagination.value === "fraction" && (
           <span className="swiper-fraction z-10 flex justify-center mx-auto font-semibold text-xs absolute text-black px-3 py-1"></span>
         )}
 
-        {config.parameters.paginationType.value === "Progressbar" && (
+        {config.modules.pagination.value === "progressbar" && (
           <div className="swiper-progress-pagination absolute w-full bottom-0 z-10"></div>
         )}
       </div>

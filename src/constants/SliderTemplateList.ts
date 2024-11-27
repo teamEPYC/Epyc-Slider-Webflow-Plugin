@@ -1,356 +1,350 @@
+import { LoopIcon, CubeIcon } from "@radix-ui/react-icons";
 import {
-  Code2,
-  Keyboard,
-  MoreHorizontal,
-  Timer,
-  Mouse,
-  RefreshCcw,
+  ArrowRight,
+  ArrowDown,
+  Sliders,
+  SpaceIcon,
+  Grid,
+  Columns,
+  Expand,
+  LockIcon,
+  Grab,
+  Navigation,
+  ListFilter,
+  FerrisWheel,
+  KeyboardIcon,
+  MouseOffIcon,
+  PlayIcon,
+  Star,
+  StarHalf,
+  FlipHorizontal,
 } from "lucide-react";
-import { SliderConfig } from "src/types/slider-config";
-const defaults = {
-  booleanFalse: (label = "Setting", icon = Code2) => {
-    return {
-      enabled: false,
-      label,
-      icon,
-    };
-  },
-  transitionSpeed: {
-    value: 300, // ms
-    lable: "",
-    icon: undefined,
-    min: 200,
-    max: 400,
-    step: 0,
-  },
-  slidesPerGroup: {
-    value: 1,
-    label: "",
-    icon: undefined,
-    options: [],
-  },
-};
-const defaultModules = {
-  navigation: defaults.booleanFalse("Navigation", Code2),
-  autoplay: defaults.booleanFalse("Autoplay", Timer),
-  keyboardControl: defaults.booleanFalse("Keyboard control", Keyboard),
-  mousewheelControl: defaults.booleanFalse("Mousewheel control", Mouse),
-  infiniteLoop: defaults.booleanFalse("Infinite loop", RefreshCcw),
+
+import {
+  DIRECTION_OPTIONS,
+  EFFECT_OPTIONS,
+  PAGINATION_OPTIONS,
+  SliderTypesConfig,
+  SLIDES_PER_VIEW_OPTIONS,
+} from "src/types/sliderTypes";
+
+// Helper functions for reusable configurations
+const createParameter = (
+  value: any,
+  label: string,
+  icon: any,
+  options?: any
+) => ({
+  value,
+  label,
+  icon,
+  options,
+});
+
+const createModule = (value: any, label: string, icon: any, options?: any) => ({
+  value,
+  label,
+  icon,
+  options,
+});
+
+// Common Icons for Reusability
+const icons = {
+  slideDirection: ArrowRight,
+  slidesPerView: Sliders,
+  slidesPerGroup: Columns,
+  spaceBetweenSlides: SpaceIcon,
+  autoHeight: Expand,
+  loopMode: LockIcon,
+  grabCursor: Grab,
+  navigation: Navigation,
+  pagination: ListFilter,
+  freeMode: FerrisWheel,
+  keyboardControl: KeyboardIcon,
+  mouseControl: MouseOffIcon,
+  autoplay: PlayIcon,
 };
 
-export const sliderTempelateList: SliderConfig[] = [
+// Slider Template List
+export const sliderTemplateList: SliderTypesConfig[] = [
   {
-    name: "Basic Horizontal Auto",
+    name: "Basic Slider",
     parameters: {
-      slideDirection: {
-        value: "horizontal",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: "auto",
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 0,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "None",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        ...defaults.transitionSpeed,
-      },
-      slidesPerGroup: {
-        ...defaults.slidesPerGroup,
-      },
+      slideDirection: createParameter(
+        "horizontal",
+        "Slide Direction",
+        icons.slideDirection,
+        DIRECTION_OPTIONS
+      ),
+      slidesPerView: createParameter(
+        1,
+        "Slides Per View",
+        icons.slidesPerView,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      slidesPerGroup: createParameter(
+        1,
+        "Slides Per Group",
+        icons.slidesPerGroup,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      spaceBetweenSlides: createParameter(
+        0,
+        "Space Between Slides",
+        icons.spaceBetweenSlides
+      ),
+      autoHeight: createParameter(false, "Auto Height", icons.autoHeight),
+      loopMode: createParameter(false, "Loop Mode", icons.loopMode),
     },
-    modules: defaultModules,
+    effects: {
+      effect: createParameter("slide", "Effect", Star, EFFECT_OPTIONS),
+      transitionDuration: { value: 300, label: "Transition Duration (ms)" },
+    },
+    modules: {
+      grabCusor: createModule(false, "Grab Cursor", icons.grabCursor),
+      navigation: createModule(false, "Navigation", icons.navigation),
+      pagination: createModule(
+        "none",
+        "Pagination Type",
+        icons.pagination,
+        PAGINATION_OPTIONS
+      ),
+      freeMode: createModule(false, "Free Mode", icons.freeMode),
+      keyboardControl: createModule(
+        false,
+        "Keyboard Control",
+        icons.keyboardControl
+      ),
+      mousewheelControl: createModule(
+        false,
+        "Mouse Control",
+        icons.mouseControl
+      ),
+      autoplay: createModule(false, "Autoplay", icons.autoplay),
+    },
   },
   {
-    name: "Vertical Loop Slider",
+    name: "Advanced Slider",
     parameters: {
-      slideDirection: {
-        value: "vertical",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: 1,
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 10,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "Bullet",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        value: 0,
-        lable: "",
-        icon: undefined,
-        min: 0,
-        max: 0,
-        step: 0,
-      },
-      slidesPerGroup: {
-        value: 0,
-        label: "",
-        icon: undefined,
-        options: [],
-      },
+      slideDirection: createParameter(
+        "vertical",
+        "Slide Direction",
+        ArrowDown,
+        DIRECTION_OPTIONS
+      ),
+      slidesPerView: createParameter(
+        3,
+        "Slides Per View",
+        Grid,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      slidesPerGroup: createParameter(
+        2,
+        "Slides Per Group",
+        icons.slidesPerGroup,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      spaceBetweenSlides: createParameter(
+        10,
+        "Space Between Slides (px)",
+        icons.spaceBetweenSlides
+      ),
+      autoHeight: createParameter(true, "Auto Height", icons.autoHeight),
+      loopMode: createParameter(true, "Infinite Loop", icons.loopMode),
     },
-    modules: defaultModules,
+    effects: {
+      effect: createParameter("fade", "Effect", StarHalf, EFFECT_OPTIONS),
+      transitionDuration: { value: 500, label: "Transition Duration (ms)" },
+    },
+    modules: {
+      grabCusor: createModule(true, "Grab Cursor", icons.grabCursor),
+      navigation: createModule(true, "Navigation", icons.navigation),
+      pagination: createModule(
+        "bullet",
+        "Pagination Type",
+        icons.pagination,
+        PAGINATION_OPTIONS
+      ),
+      freeMode: createModule(false, "Free Mode", icons.freeMode),
+      keyboardControl: createModule(
+        false,
+        "Keyboard Control",
+        icons.keyboardControl
+      ),
+      mousewheelControl: createModule(
+        false,
+        "Mouse Control",
+        icons.mouseControl
+      ),
+      autoplay: createModule(false, "Autoplay", icons.autoplay),
+    },
   },
   {
-    name: "3 Slides Per View",
+    name: "Minimal Slider",
     parameters: {
-      slideDirection: {
-        value: "horizontal",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: 3,
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 15,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "None",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        value: 0,
-        lable: "",
-        icon: undefined,
-        min: 0,
-        max: 0,
-        step: 0,
-      },
-      slidesPerGroup: {
-        value: 0,
-        label: "",
-        icon: undefined,
-        options: [],
-      },
+      slideDirection: createParameter(
+        "horizontal",
+        "Slide Direction",
+        icons.slideDirection,
+        DIRECTION_OPTIONS
+      ),
+      slidesPerView: createParameter(
+        1,
+        "Slides Per View",
+        icons.slidesPerView,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      slidesPerGroup: createParameter(
+        1,
+        "Slides Per Group",
+        icons.slidesPerGroup,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      spaceBetweenSlides: createParameter(
+        5,
+        "Space Between Slides",
+        icons.spaceBetweenSlides
+      ),
+      autoHeight: createParameter(true, "Auto Height", icons.autoHeight),
+      loopMode: createParameter(false, "Loop Mode", icons.loopMode),
     },
-    modules: defaultModules,
+    effects: {
+      effect: createParameter("slide", "Effect", Star, EFFECT_OPTIONS),
+      transitionDuration: { value: 200, label: "Transition Duration (ms)" },
+    },
+    modules: {
+      grabCusor: createModule(false, "Grab Cursor", icons.grabCursor),
+      navigation: createModule(false, "Navigation", icons.navigation),
+      pagination: createModule(
+        "none",
+        "Pagination Type",
+        icons.pagination,
+        PAGINATION_OPTIONS
+      ),
+      freeMode: createModule(false, "Free Mode", icons.freeMode),
+      keyboardControl: createModule(
+        false,
+        "Keyboard Control",
+        icons.keyboardControl
+      ),
+      mousewheelControl: createModule(
+        false,
+        "Mouse Control",
+        icons.mouseControl
+      ),
+      autoplay: createModule(false, "Autoplay", icons.autoplay),
+    },
   },
   {
-    name: "Autoplay Vertical Slider",
+    name: "Dynamic Slider",
     parameters: {
-      slideDirection: {
-        value: "vertical",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: 1,
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 0,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "Progressbar",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        value: 0,
-        lable: "",
-        icon: undefined,
-        min: 0,
-        max: 0,
-        step: 0,
-      },
-      slidesPerGroup: {
-        value: 0,
-        label: "",
-        icon: undefined,
-        options: [],
-      },
+      slideDirection: createParameter(
+        "horizontal",
+        "Slide Direction",
+        icons.slideDirection,
+        DIRECTION_OPTIONS
+      ),
+      slidesPerView: createParameter(
+        4,
+        "Slides Per View",
+        Grid,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      slidesPerGroup: createParameter(
+        2,
+        "Slides Per Group",
+        icons.slidesPerGroup,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      spaceBetweenSlides: createParameter(
+        15,
+        "Space Between Slides",
+        icons.spaceBetweenSlides
+      ),
+      autoHeight: createParameter(false, "Auto Height", icons.autoHeight),
+      loopMode: createParameter(true, "Loop Mode", icons.loopMode),
     },
-    modules: defaultModules,
+    effects: {
+      effect: createParameter("cube", "Effect", CubeIcon, EFFECT_OPTIONS),
+      transitionDuration: { value: 400, label: "Transition Duration (ms)" },
+    },
+    modules: {
+      grabCusor: createModule(false, "Grab Cursor", icons.grabCursor),
+      navigation: createModule(false, "Navigation", icons.navigation),
+      pagination: createModule(
+        "none",
+        "Pagination Type",
+        icons.pagination,
+        PAGINATION_OPTIONS
+      ),
+      freeMode: createModule(false, "Free Mode", icons.freeMode),
+      keyboardControl: createModule(
+        false,
+        "Keyboard Control",
+        icons.keyboardControl
+      ),
+      mousewheelControl: createModule(
+        false,
+        "Mouse Control",
+        icons.mouseControl
+      ),
+      autoplay: createModule(false, "Autoplay", icons.autoplay),
+    },
   },
   {
-    name: "Infinite Horizontal Loop",
+    name: "Interactive Slider",
     parameters: {
-      slideDirection: {
-        value: "horizontal",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: 3,
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 30,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "Fraction",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        value: 0,
-        lable: "",
-        icon: undefined,
-        min: 0,
-        max: 0,
-        step: 0,
-      },
-      slidesPerGroup: {
-        value: 0,
-        label: "",
-        icon: undefined,
-        options: [],
-      },
+      slideDirection: createParameter(
+        "horizontal",
+        "Slide Direction",
+        icons.slideDirection,
+        DIRECTION_OPTIONS
+      ),
+      slidesPerView: createParameter(
+        2,
+        "Slides Per View",
+        Grid,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      slidesPerGroup: createParameter(
+        1,
+        "Slides Per Group",
+        icons.slidesPerGroup,
+        SLIDES_PER_VIEW_OPTIONS
+      ),
+      spaceBetweenSlides: createParameter(
+        20,
+        "Space Between Slides",
+        icons.spaceBetweenSlides
+      ),
+      autoHeight: createParameter(true, "Auto Height", icons.autoHeight),
+      loopMode: createParameter(false, "Loop Mode", icons.loopMode),
     },
-    modules: defaultModules,
-  },
-  {
-    name: "Minimalist Autoplay Slider",
-    parameters: {
-      slideDirection: {
-        value: "horizontal",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: "auto",
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 10,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "None",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        value: 0,
-        lable: "",
-        icon: undefined,
-        min: 0,
-        max: 0,
-        step: 0,
-      },
-      slidesPerGroup: {
-        value: 0,
-        label: "",
-        icon: undefined,
-        options: [],
-      },
+    effects: {
+      effect: createParameter("flip", "Effect", FlipHorizontal, EFFECT_OPTIONS),
+      transitionDuration: { value: 350, label: "Transition Duration (ms)" },
     },
-    modules: defaultModules,
-  },
-  {
-    name: "Two Slides Loop",
-    parameters: {
-      slideDirection: {
-        value: "horizontal",
-        label: "Slide direction",
-        icon: Code2,
-        options: ["horizontal", "vertical"],
-      },
-      slidesPerView: {
-        value: 2,
-        label: "Slides per view",
-        icon: Code2,
-        options: ["auto", 1, 2, 3, 4, 5],
-      },
-      spaceBetweenSlides: {
-        value: 5,
-        label: "Space between slides",
-        icon: Code2,
-        min: 0,
-        max: 100,
-        step: 1,
-      },
-      paginationType: {
-        value: "Bullet",
-        label: "Pagination Type",
-        icon: MoreHorizontal,
-        options: ["None", "Bullet", "Progressbar", "Fraction"],
-      },
-      transitionSpeed: {
-        value: 0,
-        lable: "",
-        icon: undefined,
-        min: 0,
-        max: 0,
-        step: 0,
-      },
-      slidesPerGroup: {
-        value: 0,
-        label: "",
-        icon: undefined,
-        options: [],
-      },
+    modules: {
+      grabCusor: createModule(false, "Grab Cursor", icons.grabCursor),
+      navigation: createModule(false, "Navigation", icons.navigation),
+      pagination: createModule(
+        "none",
+        "Pagination Type",
+        icons.pagination,
+        PAGINATION_OPTIONS
+      ),
+      freeMode: createModule(false, "Free Mode", icons.freeMode),
+      keyboardControl: createModule(
+        false,
+        "Keyboard Control",
+        icons.keyboardControl
+      ),
+      mousewheelControl: createModule(
+        false,
+        "Mouse Control",
+        icons.mouseControl
+      ),
+      autoplay: createModule(false, "Autoplay", icons.autoplay),
     },
-    modules: defaultModules,
   },
 ];

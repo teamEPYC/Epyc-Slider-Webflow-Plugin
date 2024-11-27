@@ -19,6 +19,8 @@ import {
   Play,
   PlayIcon,
   Star,
+  Grab,
+  Image,
 } from "lucide-react";
 
 import React, { type ElementType } from "react";
@@ -48,6 +50,7 @@ export interface ModuleConfig {
   keyboardControl: SliderConfigOption<boolean>;
   mousewheelControl: SliderConfigOption<boolean>;
   autoplay: SliderConfigOption<boolean>;
+  grabCusor: SliderConfigOption<boolean>;
 }
 
 export interface ParametersConfig {
@@ -65,6 +68,7 @@ export interface EffectsConfig {
 }
 
 export interface SliderTypesConfig {
+  name?: string;
   parameters: ParametersConfig;
   effects: EffectsConfig;
   modules: ModuleConfig;
@@ -125,6 +129,11 @@ export const initialSliderConfig: SliderTypesConfig = {
     transitionDuration: { value: 300, label: "Transition Duration" },
   },
   modules: {
+    grabCusor: {
+      label: "Grab cursor",
+      value: false,
+      icon: Grab,
+    },
     navigation: {
       value: false,
       label: "Navigation",

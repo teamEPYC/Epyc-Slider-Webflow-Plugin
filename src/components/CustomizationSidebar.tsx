@@ -17,11 +17,6 @@ type Props = {
   onModuleUpdate: Function;
   config: SliderTypesConfig;
   resetconfig: Function;
-  updateConfig: (
-    type: "parameters" | "modules",
-    key: string,
-    value: any
-  ) => void;
 };
 
 function CustomizationSidebar({

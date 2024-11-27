@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { sliderTempelateList } from "./constants/SliderTemplateList";
+import { sliderTemplateList } from "./constants/SliderTemplateList";
 import { Settings } from "lucide-react";
-import { defaultSliderConfig, SliderConfig } from "./types/slider-config";
 import PreviewScreen from "./components/PreviewScreen";
 import { insertCustomConfigSliderComponent } from "./lib/slider-utils";
 import {
@@ -23,28 +22,14 @@ export const getOrCreateStyle = async (styleName: string) => {
 };
 const App: React.FC = () => {
   const [isCustomizeModeOn, setIsCustomizeModeOn] = useState<boolean>(false);
-  const [config, setConfig] = useState<SliderConfig>(defaultSliderConfig);
+  const [sliderConfig, setSliderConfig] =
+    useState<SliderTypesConfig>(initialSliderConfig);
 
   function resetconfig() {
     setIsCustomizeModeOn(false);
-    setConfig(defaultSliderConfig);
+    setSliderConfig(initialSliderConfig);
   }
-  const updateConfig = (
-    type: "parameters" | "modules",
-    key: string,
-    value: any
-  ) => {
-    setConfig((prev) => ({
-      ...prev,
-      [type]: {
-        ...prev[type],
-        [key]: value,
-      },
-    }));
-  };
   // new code starts
-  const [sliderConfig, setSliderConfig] =
-    useState<SliderTypesConfig>(initialSliderConfig);
 
   const updateModuleValue = <K extends keyof Omit<ModuleConfig, "autoplay">>(
     key: K,
@@ -100,7 +85,6 @@ const App: React.FC = () => {
           updateEffectValue={updateEffectValue}
           onModuleUpdate={updateModuleValue}
           config={sliderConfig}
-          updateConfig={updateConfig}
           resetconfig={resetconfig}
         />
         {/* <Sidebar
@@ -110,13 +94,13 @@ const App: React.FC = () => {
         /> */}
 
         <div className="flex justify-center items-center p-8">
-          <PreviewScreen config={config} />
+          <PreviewScreen config={sliderConfig} />
         </div>
       </div>
     );
   }
-  const handleCustomize = (item: SliderConfig) => {
-    setConfig(item);
+  const handleCustomize = (item: SliderTypesConfig) => {
+    setSliderConfig(item);
     setIsCustomizeModeOn(true);
   };
   return (
@@ -152,7 +136,7 @@ const App: React.FC = () => {
             Choose a Preset
           </h2>
           <div className="flex flex-col gap-6">
-            {sliderTempelateList.map((preset, index) => (
+            {sliderTemplateList.map((preset, index) => (
               <div key={index} className="group">
                 <div className="bg-[#232323] rounded-2xl border border-neutral-800 p-6 hover:border-neutral-700 transition-all duration-200">
                   <div className="flex justify-between items-start gap-2">
@@ -169,9 +153,9 @@ const App: React.FC = () => {
                       </button>
                       <button
                         type="button"
-                        // onClick={() =>
-                        //   insertCustomConfigSliderComponent({ config: preset })
-                        // }
+                        onClick={() =>
+                          insertCustomConfigSliderComponent({ config: preset })
+                        }
                         className="border border-neutral-700 text-neutral-300 px-2 py-1 rounded-md hover:border-neutral-600 hover:text-white transition-colors duration-200"
                       >
                         Import
