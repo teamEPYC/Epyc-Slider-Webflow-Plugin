@@ -26,7 +26,7 @@ import {
   PAGINATION_OPTIONS,
   SliderTypesConfig,
   SLIDES_PER_VIEW_OPTIONS,
-} from "src/types/sliderTypes";
+} from "../types/sliderTypes";
 
 // Helper functions for reusable configurations
 const createParameter = (
@@ -325,7 +325,7 @@ export const sliderTemplateList: SliderTypesConfig[] = [
       transitionDuration: { value: 350, label: "Transition Duration (ms)" },
     },
     modules: {
-      grabCusor: createModule(false, "Grab Cursor", icons.grabCursor),
+      grabCusor: createModule(true, "Grab Cursor", icons.grabCursor),
       navigation: createModule(false, "Navigation", icons.navigation),
       pagination: createModule(
         "none",

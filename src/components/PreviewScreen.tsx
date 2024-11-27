@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { SliderTypesConfig } from "src/types/sliderTypes";
+import { SliderTypesConfig } from "../types/sliderTypes";
 
 interface PreviewProps {
   config: SliderTypesConfig;
@@ -80,9 +80,10 @@ function PreviewScreen({ config }: PreviewProps) {
               : false
           }
           pagination={getPaginationConfig()}
+          effect={config.effects.effect.value}
           slidesPerGroup={config.parameters.slidesPerGroup.value}
           grabCursor={config.modules.grabCusor.value}
-          effect={config.effects.effect.value}
+          freeMode={true}
           className="h-full "
         >
           <div className="flex h-full w-full items-center justify-center">

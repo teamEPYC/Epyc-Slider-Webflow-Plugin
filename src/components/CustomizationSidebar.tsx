@@ -31,9 +31,9 @@ function CustomizationSidebar({
 }: Props) {
   console.log(effectsConfig);
   return (
-    <div className="bg-[#232323] border-r border-neutral-800 flex flex-col">
+    <div className="bg-[#292929] border-r border-neutral-800 flex flex-col">
       <div className="flex-1 overflow-y-auto">
-        <div className="p-6">
+        <div className="p-4">
           <h2 className="text-sm font-semibold text-neutral-400 mb-4">
             PARAMETERS
           </h2>
@@ -88,7 +88,7 @@ function CustomizationSidebar({
                         updateParameterValue(paramKey, !option.value);
                       }}
                       className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border border-neutral-700 transition-colors duration-200 ease-in-out ${
-                        option.value ? "bg-blue-600" : "bg-neutral-700"
+                        option.value ? "bg-green-600" : "bg-neutral-700"
                       }`}
                     >
                       <span
@@ -176,7 +176,7 @@ function CustomizationSidebar({
                     <button
                       onClick={() => onModuleUpdate(key, !option.value)}
                       className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border border-neutral-700 transition-colors duration-200 ease-in-out ${
-                        option.value ? "bg-blue-600" : "bg-neutral-700"
+                        option.value ? "bg-green-600" : "bg-neutral-700"
                       }`}
                     >
                       <span
